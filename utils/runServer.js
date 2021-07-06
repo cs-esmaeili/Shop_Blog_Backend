@@ -1,5 +1,3 @@
-require("../models/index");
-
 exports.runServer = (app, sequelize) => {
     if (process.argv.length > 2) {
         if (process.argv.includes("migrate") && process.argv.includes("seed")) {
