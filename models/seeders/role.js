@@ -1,4 +1,8 @@
 const Role = require("../Role");
-const result = await Role.create({
-    name: "Admin",
-});
+
+(async () => {
+    await Role.destroy({ truncate: { cascade: true } });
+    await Role.create({
+        name: "Admin",
+    });
+})();

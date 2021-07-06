@@ -10,6 +10,8 @@ Role.belongsToMany(Permission, {
     foreignKey: {
         name: "role_id",
     },
+    onDelete: "cascade",
+    onUpdate: "cascade",
 });
 
 Role.hasMany(Person, {

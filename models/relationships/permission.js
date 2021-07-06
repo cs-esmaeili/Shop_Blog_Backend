@@ -7,4 +7,6 @@ Permission.belongsToMany(Role, {
     sourceKey: "permission_id",
     targetKey: "role_id",
     foreignKey: "permission_id",
+    onDelete: "cascade",
+    onUpdate: "cascade",
 });

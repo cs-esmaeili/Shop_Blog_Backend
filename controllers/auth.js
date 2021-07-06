@@ -1,6 +1,7 @@
-const { text } = require("../models/seeders/permission");
+const { createToken, checkToken } = require("../utils/token");
+
 exports.logIn = (req, res, next) => {
-    text();
-    res.send("salam");
+    console.log(req.body);
+    res.send(createToken({ javad: "salam" } , '1h'));
 };
 exports.logOut = () => {};

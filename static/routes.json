@@ -1,0 +1,14 @@
+[
+    {
+        "path": "/auth/login",
+        "description": "haha"
+    },
+    {
+        "path": "/auth/logout",
+        "description": "haha"
+    },
+    {
+        "path": "/",
+        "description": "haha"
+    }
+]

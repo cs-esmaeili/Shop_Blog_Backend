@@ -10,7 +10,7 @@ const Permission = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
+        path: {
             type: DataTypes.STRING(100),
         },
         description: {
