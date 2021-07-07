@@ -5,14 +5,20 @@ const { runServer } = require("./utils/runServer");
 const sequelize = require("./database");
 require("./models/index");
 const auth = require("./routes/auth");
+const filemanager = require("./routes/filemanager");
+const { middlewares } = require("./Middlewares/index");
 
 app.use(express.json());
 
 app.use(express.static("public"));
-app.use("/auth", auth);
 
 app.get("/", (req, res) => {
     res.send("");
 });
+app.use("/auth", auth);
+
+middlewares(app);
+
+app.use("/filemanager", filemanager);
 
 runServer(app, sequelize);

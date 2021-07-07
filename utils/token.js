@@ -34,6 +34,7 @@ exports.checkToken = (token) => {
         });
         return check;
     } catch (error) {
-        return error;
+        console.log(error);
+        return false;
     }
 }

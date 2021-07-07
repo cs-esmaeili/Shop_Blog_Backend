@@ -1,4 +1,4 @@
-const { createToken, checkToken } = require("../utils/token");
+const { createToken } = require("../utils/token");
 const Person = require("../models/Person");
 const PersonInfo = require("../models/PersonInfo");
 const Role = require("../models/Role");
@@ -22,7 +22,7 @@ exports.logIn = async (req, res) => {
             delete item.role_permission;
             return item;
         });
-        person.permission = permissions;
+        person.permissions = permissions;
         res.send(createToken(person, "1h"));
     } else {
         res.send("inValid Username or Passowrd");

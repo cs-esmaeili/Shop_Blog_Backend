@@ -10,5 +10,9 @@
     {
         "path": "/",
         "description": "haha"
+    },
+    {
+        "path": "/filemanager/test",
+        "description": "haha"
     }
 ]
