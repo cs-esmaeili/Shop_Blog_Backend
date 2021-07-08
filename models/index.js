@@ -14,6 +14,7 @@ const RolePermission = require("./RolePermission");
 const UserCart = require("./UserCart");
 const UserJournal = require("./UserJournal");
 const UserJournalProduct = require("./UserJournalProduct");
+const Token = require("./Token");
 require('./relationships');
 
 

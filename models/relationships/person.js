@@ -5,6 +5,7 @@ const PersonInfo = require("../PersonInfo");
 const Post = require("../Post");
 const UserJournal = require("../UserJournal");
 const Role = require("../Role");
+const Token = require("../Token");
 
 Person.hasMany(Factor, {
     foreignKey: {
@@ -36,5 +37,10 @@ Person.hasMany(Post, {
 Person.belongsTo(Role, {
     foreignKey: {
         name: "role_id",
+    },
+});
+Person.belongsTo(Token, {
+    foreignKey: {
+        name: "token_id",
     },
 });

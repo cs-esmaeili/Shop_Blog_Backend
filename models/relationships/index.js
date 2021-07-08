@@ -12,3 +12,4 @@ require('./userjournalproduct');
 require('./role');
 require('./permission');
 require('./usercart');
+require('./token');

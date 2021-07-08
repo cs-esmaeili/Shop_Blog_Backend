@@ -12,6 +12,7 @@ const Link = require("../Link");
         password: process.env.ADMIN_PASSWORD,
         status: 1,
         role_id: 1,
+        token_id: 1,
     });
     await Link.create({
         url: process.env.BASE_URL + "public/50167980.jpg",

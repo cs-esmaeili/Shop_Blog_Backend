@@ -1,31 +1,34 @@
-const { createToken } = require("../utils/token");
+const { createToken, checkToken } = require("../utils/token");
 const Person = require("../models/Person");
-const PersonInfo = require("../models/PersonInfo");
-const Role = require("../models/Role");
-const Permission = require("../models/Permission");
+const Token = require("../models/Token");
+const { getToken } = require("../utils/bearer");
 
 exports.logIn = async (req, res) => {
-    let person = await Person.findOne({
-        where: { username: req.body.username, password: req.body.password },
-        include: PersonInfo,
-    });
+    let person = await Person.getPerson(req.body.username, req.body.password);
+    person = person.toJSON();
     if (person !== null) {
-        const permission = await Role.findAll({
-            where: { role_id: person.role_id },
-            include: Permission,
-            attributes: { exclude: "permission.role_permission" },
-        });
-        person = person.toJSON();
-        delete person.password;
-        let permissions = await permission[0].toJSON().permissions;
-        await permissions.map((item) => {
-            delete item.role_permission;
-            return item;
-        });
-        person.permissions = permissions;
-        res.send(createToken(person, "1h"));
+        const token = await createToken(person, "1h");
+        const updateToken = await Token.updateToken(person.token_id, token);
+        if (updateToken !== false) {
+            res.send(token);
+        } else {
+            res.status(500).send("server error");
+        }
     } else {
-        res.send("inValid Username or Passowrd");
+        res.status(403).send("inValid Username or Passowrd");
     }
 };
-exports.logOut = () => {};
+exports.logOut = async (req, res) => {
+    const checktoken = checkToken(getToken(req.headers.authorization));
+    if (checktoken != false) {
+        let personToken = await Person.getToken(checktoken.person_id);
+        const updateToken = await Token.updateToken(personToken.token_id, null);
+        if (updateToken !== false) {
+            res.status(200).send("user loged out");
+        } else {
+            res.status(500).send("server error");
+        }
+    } else {
+        res.status(404).send("user not found");
+    }
+};
