@@ -1,7 +1,10 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/index");
 const PersonInfo = require("./PersonInfo");
+const Permission = require("./Permission");
+const RolePermission = require("./RolePermission");
 const Link = require("./Link");
+const Role = require("./Role");
 
 const Person = sequelize.define(
     "person",
@@ -50,7 +53,7 @@ Person.getPerson = async (username, password) => {
     return person;
 };
 Person.getToken = async (person_id) => {
-    let person = await Person.findOne({
+    let token = await Person.findOne({
         where: { person_id },
         include: {
             model: PersonInfo,
@@ -63,6 +66,22 @@ Person.getToken = async (person_id) => {
             exclude: [],
         },
     });
-    return person;
+    return token;
+};
+Person.getPermissions = async (person_id) => {
+    let Permissions = await Person.findOne({
+        where: { person_id },
+        include: {
+            model: Role,
+            include: {
+                model: Permission,
+            },
+        },
+        attributes: {
+            include: [],
+            exclude: [],
+        },
+    })
+    return Permissions.role.permissions;;
 };
 module.exports = Person;

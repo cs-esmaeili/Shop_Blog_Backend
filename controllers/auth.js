@@ -5,8 +5,8 @@ const { getToken } = require("../utils/bearer");
 
 exports.logIn = async (req, res) => {
     let person = await Person.getPerson(req.body.username, req.body.password);
-    person = person.toJSON();
     if (person !== null) {
+        person = person.toJSON();
         const token = await createToken(person, "1h");
         const updateToken = await Token.updateToken(person.token_id, token);
         if (updateToken !== false) {

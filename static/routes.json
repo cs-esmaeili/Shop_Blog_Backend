@@ -1,5 +1,9 @@
 [
     {
+        "path": "/fm/savefile",
+        "description": "haha"
+    },
+    {
         "path": "/auth/login",
         "description": "haha"
     },
@@ -9,10 +13,6 @@
     },
     {
         "path": "/",
-        "description": "haha"
-    },
-    {
-        "path": "/filemanager/test",
         "description": "haha"
     }
 ]

@@ -1,16 +1,16 @@
 const { checkToken } = require("../utils/token");
 const { getToken } = require("../utils/bearer");
+const { checkPermission } = require("../utils/permissions");
 
 module.exports = (app) => {
-    app.use((req, res, next) => {
-        let token = checkToken(getToken(req.headers.authorization));
+    app.use(async (req, res, next) => {
+        const token = await checkToken(getToken(req.headers.authorization));
         if (token != false) {
-            let permissions = token.permissions;
-            if (
-                permissions.filter(function (e) {
-                    return e.path === req.originalUrl;
-                }).length > 0
-            ) {
+            const check = await checkPermission(
+                token.person_id,
+                req.originalUrl
+            );
+            if (check) {
                 next();
             } else {
                 res.status(403).send("Access Denied");

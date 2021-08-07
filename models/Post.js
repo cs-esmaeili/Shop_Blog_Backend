@@ -1,8 +1,8 @@
 const {  DataTypes } = require("sequelize");
 const sequelize = require('../database/index');
 
-const Posts = sequelize.define(
-    "posts",
+const Post = sequelize.define(
+    "post",
     {
         post_id: {
             type: DataTypes.BIGINT(20),
@@ -42,4 +42,4 @@ const Posts = sequelize.define(
     }
 );
 
-module.exports = Posts;
+module.exports = Post;
